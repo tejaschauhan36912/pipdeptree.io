@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyPI Dependency Explorer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>PyPI Dependency Explorer</h1>
+        <p class="subtitle">Enter package names to see their direct dependencies.</p>
+
+        <div class="input-area">
+            <input type="text" id="packageInput" placeholder="Type package name (e.g., requests, django)" autocomplete="off">
+            <button id="addPackageBtn"><i class="fas fa-plus"></i> Add Package</button>
+        </div>
+
+        <div id="selectedPackages" class="selected-packages">
+            </div>
+
+        <div class="output-area">
+            <div class="output-header">
+                <h2>Dependencies Output</h2>
+                <button id="copyBtn" class="copy-btn"><i class="fas fa-copy"></i> Copy to Clipboard</button>
+            </div>
+            <div id="loading" class="loading-spinner" style="display: none;"></div>
+            <pre><code id="dependenciesOutput">
+# Start typing package names above and hit Enter or click 'Add Package'
+
+# Dependencies will appear here, grouped by package.
+            </code></pre>
+        </div>
+
+        <div id="error" class="error-message" style="display: none;"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

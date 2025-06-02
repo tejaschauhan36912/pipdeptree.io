@@ -1,0 +1,355 @@
+:root {
+    /* Color Palette */
+    --primary-color: #5a7dff; /* A softer, friendly blue */
+    --primary-hover: #4a6ceb;
+    --background-body: #f8faff; /* Very light blueish-white */
+    --background-card: #ffffff; /* Pure white for sections */
+    --text-dark: #333d47; /* Dark charcoal for main text */
+    --text-medium: #6c7a89; /* Medium gray for subtitles/secondary text */
+    --border-light: #e0e6ed; /* Very light gray for borders */
+    --tag-bg: #e6eefc; /* Soft blue for tags */
+    --tag-text: #3b5a9a; /* Darker blue for tag text */
+    --tag-close: #6c7a89; /* Matches medium text */
+    --output-bg: #f3f7fd; /* Lightest blue for code area */
+    --output-header-bg: #e9f0f9; /* Slightly darker blue for output header */
+    --success-color: #28a745; /* Standard success green */
+    --success-hover: #218838;
+    --error-bg: #fff0f0; /* Lightest red for errors */
+    --error-border: #f0c2c2;
+    --error-text: #d9534f; /* Standard error red */
+
+    /* Spacing & Sizing */
+    --spacing-xs: 5px;
+    --spacing-sm: 10px;
+    --spacing-md: 15px;
+    --spacing-lg: 20px;
+    --spacing-xl: 30px;
+    --border-radius-sm: 8px;
+    --border-radius-md: 12px;
+    --border-radius-lg: 15px;
+}
+
+/* --- Base & Layout --- */
+body {
+    font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--background-body);
+    color: var(--text-dark);
+    /* Removed flex centering to allow full width */
+    margin: 0;
+    padding: 0; /* Remove default padding */
+    min-height: 100vh;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: flex; /* Use flexbox to center content vertically on short pages */
+    flex-direction: column;
+}
+
+.container {
+    /* Removed fixed max-width and central margin */
+    background-color: var(--background-card);
+    padding: var(--spacing-xl) 5vw; /* Use percentage for horizontal padding */
+    border-radius: 0; /* Remove border-radius for full width */
+    box-shadow: none; /* Remove shadow for a flat, modern look */
+    width: 100%; /* Take full width */
+    flex-grow: 1; /* Allow container to grow and push footer down */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+/* Ensure content within container has a readable max-width */
+.content-wrapper {
+    max-width: 1200px; /* Max width for content for readability on very wide screens */
+    margin: 0 auto; /* Center content within the wrapper */
+    padding: var(--spacing-xl) 0; /* Vertical padding */
+}
+
+/* --- Headings & Subtitles --- */
+h1 {
+    text-align: center;
+    color: var(--text-dark);
+    margin-bottom: var(--spacing-sm);
+    font-size: 2.8em; /* Slightly larger */
+    font-weight: 700;
+}
+
+.subtitle {
+    text-align: center;
+    color: var(--text-medium);
+    margin-bottom: var(--spacing-xl);
+    font-size: 1.15em; /* Slightly larger */
+    max-width: 700px; /* Limit width for readability */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- Input Area --- */
+.input-area {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+    max-width: 800px; /* Keep input area somewhat constrained for usability */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#packageInput {
+    flex-grow: 1;
+    padding: 14px 15px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius-md);
+    font-size: 1.1em;
+    background-color: var(--background-card);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#packageInput:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(90, 125, 255, 0.2);
+}
+
+#addPackageBtn {
+    padding: 14px 25px;
+    background-color: var(--primary-color);
+    color: var(--background-card);
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 8px rgba(90, 125, 255, 0.3); /* Softer shadow for button */
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+#addPackageBtn:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(90, 125, 255, 0.4);
+}
+
+#addPackageBtn:active {
+    background-color: var(--primary-hover);
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(90, 125, 255, 0.2);
+}
+
+/* --- Selected Packages (Tags) --- */
+.selected-packages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    min-height: 40px;
+    margin-bottom: var(--spacing-xl);
+    max-width: 1000px; /* Allow tags to spread a bit more */
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center; /* Center tags if fewer */
+}
+
+.package-tag {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--tag-bg);
+    color: var(--tag-text);
+    padding: 8px 15px;
+    border-radius: 25px;
+    font-size: 0.95em;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    border: 1px solid var(--border-light);
+}
+
+.package-tag .close-btn {
+    margin-left: var(--spacing-sm);
+    background: none;
+    border: none;
+    color: var(--tag-close);
+    font-size: 1em;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s ease, transform 0.1s ease;
+}
+
+.package-tag .close-btn:hover {
+    color: var(--text-dark);
+    transform: scale(1.1);
+}
+
+/* --- Output Area --- */
+.output-area {
+    margin-top: var(--spacing-xl);
+    background-color: var(--output-bg);
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius-md); /* Keep some subtle rounding here */
+    overflow: hidden;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.03);
+    max-width: 1000px; /* Max width for readability of code */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background-color: var(--output-header-bg);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.output-header h2 {
+    margin: 0;
+    color: var(--text-dark);
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
+.copy-btn {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--success-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.copy-btn:hover {
+    background-color: var(--success-hover);
+    transform: translateY(-1px);
+}
+
+.copy-btn:active {
+    background-color: #1e7e34;
+    transform: translateY(0);
+}
+
+.copy-btn.copied {
+    background-color: #5cb85c;
+}
+
+pre {
+    background-color: var(--output-bg);
+    color: var(--text-dark);
+    padding: var(--spacing-lg);
+    margin: 0;
+    max-height: 400px;
+    overflow-y: auto;
+    font-family: 'Fira Code', 'Cascadia Code', 'Consolas', 'Monaco', monospace;
+    font-size: 0.95em;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+code {
+    display: block;
+}
+
+.error-message {
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-md);
+    background-color: var(--error-bg);
+    border: 1px solid var(--error-border);
+    color: var(--error-text);
+    border-radius: var(--border-radius-md);
+    text-align: center;
+    font-weight: 500;
+    display: none;
+    font-size: 1em;
+    max-width: 600px; /* Keep error messages readable */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: var(--primary-color);
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    animation: spin 1s linear infinite;
+    margin: var(--spacing-xl) auto;
+    display: none;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .container {
+        padding: var(--spacing-lg) 3vw; /* Reduce horizontal padding on smaller screens */
+    }
+
+    h1 {
+        font-size: 2.2em;
+    }
+
+    .subtitle {
+        font-size: 1em;
+    }
+
+    .input-area {
+        flex-direction: column;
+        max-width: 100%; /* Allow full width on smaller screens */
+    }
+
+    #addPackageBtn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .selected-packages {
+        justify-content: flex-start; /* Align tags left on smaller screens */
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .output-area {
+        max-width: 100%; /* Allow full width on smaller screens */
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .output-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-md);
+    }
+
+    .copy-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .error-message {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: var(--spacing-md) 2vw;
+    }
+    h1 {
+        font-size: 1.8em;
+    }
+    .package-tag {
+        padding: 6px 12px;
+        font-size: 0.9em;
+    }
+}
